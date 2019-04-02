@@ -88,7 +88,7 @@ Unfortunately, this implies that you will have to implement clients by hand and
 configure them to use the same marshaller as the server. Obviously, one of the
 major selling points of gRPC is that it makes it easy to generate clients for a
 number of languages (as long as you use Protobuf for marshalling), so let's see
-how would we implement Protobuf enabled Helidon gRPC service.
+how we would implement Protobuf enabled Helidon gRPC service.
 
 == Implementing Protobuf Services
 
@@ -162,5 +162,3 @@ class EchoService implements GrpcService {
 <4> Extract message string from the request.
 <5> Create the response containing extracted message.
 <6> Send the response back to the client by completing response observer.
-
-
