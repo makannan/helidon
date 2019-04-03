@@ -44,11 +44,12 @@ public class GrpcServerBasicConfig
      *
      * @param name            the server name
      * @param port            the port to listen on
-     * @param workers    a count of threads in a pool used to tryProcess HTTP requests
+     * @param workers         a count of threads in a pool used to tryProcess HTTP requests
      * @param nativeTransport {@code true} to enable native transport for
      *                        the server
      * @param tracer          the tracer to use
      * @param tracingConfig   the tracing configuration
+     * @param sslConfig       the SSL configuration
      */
     public GrpcServerBasicConfig(String name,
                                  int port,

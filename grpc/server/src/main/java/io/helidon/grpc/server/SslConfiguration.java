@@ -21,32 +21,26 @@ import java.nio.file.Paths;
 
 import io.helidon.config.Config;
 
+/**
+ * SSL configuration details.
+ *
+ * @author Bin Chen
+ */
 public class SslConfiguration {
-
-    /**
-     * True if use jdk ssl implementation
-     */
     private boolean jdkSSL;
-
-    /**
-     * The TLS certs file.
-     */
     private String tlsCert;
-
-    /**
-     * The TLS key file.
-     */
     private String tlsKey;
-
-    /**
-     * The TLS CA file.
-     */
     private String tlsCaCert;
 
     /**
      * Create a new instance.
+     *
+     * @param jdkSSL    flag specifying whether to use JDK SSL implementation
+     * @param tlsCert   the TLS certificate file
+     * @param tlsKey    the TLS key file
+     * @param tlsCaCert the TLS CA file
      */
-    public SslConfiguration(boolean jdkSSL, String tlsCert, String tlsKey, String tlsCaCert){
+    private SslConfiguration(boolean jdkSSL, String tlsCert, String tlsKey, String tlsCaCert) {
         this.jdkSSL = jdkSSL;
         this.tlsCert = tlsCert;
         this.tlsKey = tlsKey;
@@ -54,9 +48,12 @@ public class SslConfiguration {
     }
 
     /**
-     * Return true if use jdk ssl implementation
+     * Return true if JDK SSL implementation should be used.
+     *
+     * @return {@code true} if JDK SSL implementation should be used;
+     *         {@code false} otherwise
      */
-    public boolean isJdkSSL(){
+    public boolean isJdkSSL() {
         return jdkSSL;
     }
 
@@ -90,7 +87,7 @@ public class SslConfiguration {
     /**
      * Return an instance of builder.
      *
-     * @return  an instance of builder
+     * @return an instance of builder
      */
     public static Builder builder() {
         return new Builder();
@@ -125,31 +122,32 @@ public class SslConfiguration {
         private String tlsKey = null;
         private String tlsCaCert = null;
 
-        private Builder() {};
+        private Builder() {
+        }
 
         private Builder(Config config) {
             if (config == null) {
                 return;
             }
 
-        Path path = Paths.get(config.get("path").asString().orElse(""));
+            Path path = Paths.get(config.get("path").asString().orElse(""));
 
-        String tlsCert = config.get("tlsCert").asString().orElse(null);
-        if (tlsCert != null) {
-            this.tlsCert = path.resolve(tlsCert).toAbsolutePath().toString();
-        }
+            String tlsCert = config.get("tlsCert").asString().orElse(null);
+            if (tlsCert != null) {
+                this.tlsCert = path.resolve(tlsCert).toAbsolutePath().toString();
+            }
 
-        String tlsKey = config.get("tlsKey").asString().orElse(null);
-        if (tlsKey != null) {
-            this.tlsKey = path.resolve(tlsKey).toAbsolutePath().toString();
-        }
+            String tlsKey = config.get("tlsKey").asString().orElse(null);
+            if (tlsKey != null) {
+                this.tlsKey = path.resolve(tlsKey).toAbsolutePath().toString();
+            }
 
-        String tlsCaCert = config.get("tlsCaCert").asString().orElse(null);
-        if (tlsCaCert != null) {
-            this.tlsCaCert = path.resolve(tlsCaCert).toAbsolutePath().toString();
-        }
+            String tlsCaCert = config.get("tlsCaCert").asString().orElse(null);
+            if (tlsCaCert != null) {
+                this.tlsCaCert = path.resolve(tlsCaCert).toAbsolutePath().toString();
+            }
 
-        this.jdkSSL = config.get("jdkSSL").asBoolean().orElse(false);
+            this.jdkSSL = config.get("jdkSSL").asBoolean().orElse(false);
         }
 
         /**

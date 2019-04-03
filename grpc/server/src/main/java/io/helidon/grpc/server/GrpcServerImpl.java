@@ -379,8 +379,7 @@ public class GrpcServerImpl implements GrpcServer {
 
             try {
                 aX509Certificates = loadX509Cert(fileClientCerts);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new IllegalStateException("gRPC server is configured to use TLS but failed to load trusted CA files");
             }
 

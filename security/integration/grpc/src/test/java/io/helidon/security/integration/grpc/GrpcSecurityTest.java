@@ -218,7 +218,10 @@ public class GrpcSecurityTest {
         when(call.getAttributes()).thenReturn(attributes);
         when(call.getMethodDescriptor()).thenReturn(descriptor);
 
-        Config config = Config.builder().sources(ConfigSources.classpath("secure-services.conf")).build();
+        Config config = Config.builder()
+                .sources(ConfigSources.classpath("secure-services.conf"))
+                .build()
+                .get("security");
 
         GrpcSecurity security = GrpcSecurity.create(Security.builder(config).build(), config);
         Context context = security.registerContext(call, headers);
